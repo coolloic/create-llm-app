@@ -1,0 +1,13 @@
+# {{ name }}
+
+A **{{ app_type }}** LLM application using `{{ chat_class }}` ({{ provider }}){% if tracing %}, with LangSmith tracing enabled{% endif %}.
+
+## Setup
+
+```bash
+pip install -r requirements.txt
+cp .env.example .env        # then fill in your API key(s)
+python main.py
+```
+
+Environment variables are loaded automatically via **python-dotenv** (`load_dotenv()` in `main.py`).

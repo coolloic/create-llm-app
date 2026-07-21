@@ -1,0 +1,15 @@
+python-dotenv
+langchain-core
+{{ package }}
+{% if app_type == 'rag' -%}
+langchain-community
+langchain-text-splitters
+faiss-cpu
+sentence-transformers
+{% endif -%}
+{% if app_type == 'agent' -%}
+langgraph
+{% endif -%}
+{% if tracing -%}
+langsmith
+{% endif -%}

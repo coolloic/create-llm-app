@@ -1,0 +1,14 @@
+from dotenv import load_dotenv
+from {{ import_path }} import {{ chat_class }}
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+
+load_dotenv()
+
+model = {{ chat_class }}(model="{{ model }}", temperature=0)
+prompt = ChatPromptTemplate.from_template("You are a helpful assistant. Answer: {question}")
+chain = prompt | model | StrOutputParser()
+
+if __name__ == "__main__":
+    question = input("Ask something: ")
+    print(chain.invoke({"question": question}))
