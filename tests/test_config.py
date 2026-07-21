@@ -23,3 +23,8 @@ def test_invalid_provider_rejected():
 def test_invalid_app_type_rejected():
     with pytest.raises(ValueError):
         ProjectConfig(name="demo", app_type="wizard")
+
+
+def test_invalid_vector_store_rejected():
+    with pytest.raises(ValueError):
+        ProjectConfig(name="demo", vector_store="pinecone")
