@@ -3,7 +3,7 @@ import questionary
 from .config import ProjectConfig, VALID_APP_TYPES, VALID_PROVIDERS
 
 
-def collect_config(name, provider, app_type, tracing) -> ProjectConfig:
+def collect_config(name: str, provider: str | None, app_type: str | None, tracing: bool | None) -> ProjectConfig:
     if provider is None:
         provider = questionary.select("LLM provider?", choices=list(VALID_PROVIDERS)).ask()
     if app_type is None:
