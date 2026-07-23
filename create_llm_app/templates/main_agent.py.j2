@@ -1,0 +1,47 @@
+from typing import Annotated, TypedDict
+
+from dotenv import load_dotenv
+from {{ import_path }} import {{ chat_class }}
+from langchain_core.tools import tool
+from langchain_core.messages import HumanMessage
+from langgraph.graph import StateGraph, START
+from langgraph.graph.message import add_messages
+from langgraph.prebuilt import ToolNode, tools_condition
+from langgraph.checkpoint.memory import MemorySaver
+
+load_dotenv()
+
+
+@tool
+def calculator(expression: str) -> str:
+    """Evaluate a basic arithmetic expression, e.g. '3 * (4 + 2)'."""
+    return str(eval(expression, {"__builtins__": {}}))
+
+
+tools = [calculator]
+model = {{ chat_class }}(model="{{ model }}", temperature=0).bind_tools(tools)
+
+
+class State(TypedDict):
+    messages: Annotated[list, add_messages]
+
+
+def call_model(state: State):
+    return {"messages": [model.invoke(state["messages"])]}
+
+
+builder = StateGraph(State)
+builder.add_node("agent", call_model)
+builder.add_node("tools", ToolNode(tools))
+builder.add_edge(START, "agent")
+builder.add_conditional_edges("agent", tools_condition)
+builder.add_edge("tools", "agent")
+graph = builder.compile(checkpointer=MemorySaver())
+
+if __name__ == "__main__":
+    question = input("Ask the agent: ")
+    result = graph.invoke(
+        {"messages": [HumanMessage(question)]},
+        {"configurable": {"thread_id": "cli"}},
+    )
+    print(result["messages"][-1].content)
