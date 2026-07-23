@@ -1,0 +1,37 @@
+from dotenv import load_dotenv
+from {{ import_path }} import {{ chat_class }}
+from langchain_community.document_loaders import TextLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import FAISS
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
+
+load_dotenv()
+
+docs = TextLoader("knowledge_base.txt").load()
+chunks = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50).split_documents(docs)
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+retriever = FAISS.from_documents(chunks, embeddings).as_retriever(search_kwargs={"k": 4})
+
+prompt = ChatPromptTemplate.from_template(
+    "Answer using ONLY this context:\n{context}\n\nQuestion: {question}"
+)
+model = {{ chat_class }}(model="{{ model }}", temperature=0)
+
+
+def format_docs(documents):
+    return "\n\n".join(d.page_content for d in documents)
+
+
+chain = (
+    {"context": retriever | format_docs, "question": RunnablePassthrough()}
+    | prompt
+    | model
+    | StrOutputParser()
+)
+
+if __name__ == "__main__":
+    question = input("Ask about the knowledge base: ")
+    print(chain.invoke(question))

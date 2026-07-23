@@ -43,4 +43,10 @@ def generate_project(config: ProjectConfig, target_dir) -> list[Path]:
         path.write_text(content)
         written.append(path)
 
+    if config.app_type == "rag":
+        content = env.get_template("knowledge_base.txt").render(**ctx)
+        path = project_dir / "knowledge_base.txt"
+        path.write_text(content)
+        written.append(path)
+
     return written
