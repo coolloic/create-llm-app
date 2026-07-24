@@ -38,3 +38,13 @@ pip install -r requirements.txt
 cp .env.example .env    # add your API key(s)
 python main.py
 ```
+
+## Learn more
+
+The generated **`rag`** app stores document chunks in an in-memory FAISS index.
+To understand that storage layer — how vector databases work and how to swap
+FAISS for Chroma, Qdrant, Pinecone, or pgvector (with full store-chunk
+examples) — see the companion guide:
+[**Vector Databases**](https://github.com/coolloic/Notebook/blob/main/vector-databases.md).
+For the broader LangChain / LangGraph / LangSmith picture, see
+[this guide](https://github.com/coolloic/Notebook/blob/main/README.md).
