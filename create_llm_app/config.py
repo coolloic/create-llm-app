@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 VALID_PROVIDERS = ("anthropic", "openai")
 VALID_APP_TYPES = ("chat", "rag", "agent")
-VALID_VECTOR_STORES = ("faiss", "chroma")
+VALID_VECTOR_STORES = ("faiss",)
 
 _NAME_RE = re.compile(r"[a-zA-Z0-9._-]+")
 
