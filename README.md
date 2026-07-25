@@ -51,3 +51,8 @@ examples) — see the companion guide:
 [**Vector Databases**](https://github.com/coolloic/Notebook/blob/main/vector-databases.md).
 For the broader LangChain / LangGraph / LangSmith picture, see
 [this guide](https://github.com/coolloic/Notebook/blob/main/README.md).
+
+## Contributing
+
+Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) for dev setup,
+running tests, and how to add a new provider or app type.
