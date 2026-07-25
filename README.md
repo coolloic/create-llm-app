@@ -1,5 +1,7 @@
 # create-llm-app
 
+[![License: MIT](https://img.shields.io/github/license/coolloic/create-llm-app)](LICENSE)
+
 Scaffold a **runnable** LLM application (LangChain / LangGraph) in seconds.
 
 ## Install

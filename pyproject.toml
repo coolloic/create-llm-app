@@ -3,6 +3,8 @@ name = "create-llm-app"
 version = "0.1.0"
 description = "Scaffold runnable LLM applications (LangChain / LangGraph)."
 requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
 dependencies = ["typer>=0.12", "jinja2>=3.1", "questionary>=2.0"]
 
 [project.optional-dependencies]
