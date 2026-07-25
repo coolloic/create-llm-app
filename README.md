@@ -1,5 +1,6 @@
 # create-llm-app
 
+[![CI](https://github.com/coolloic/create-llm-app/actions/workflows/ci.yml/badge.svg)](https://github.com/coolloic/create-llm-app/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/github/license/coolloic/create-llm-app)](LICENSE)
 
 Scaffold a **runnable** LLM application (LangChain / LangGraph) in seconds.
